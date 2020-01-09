@@ -26,6 +26,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    # member_id = @user.id
+    @loans = Loan.where(member_id: @user.id)
+  end
+
   private
 
   def set_user

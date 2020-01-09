@@ -12,6 +12,7 @@ class Carrier
       scope :with_category_id, ->(category_id) { where("category_id = ?", category_id) }
       scope :with_current_location_id, ->(current_location_id) { where("current_location_id = ?", current_location_id) }
       scope :with_state_in, ->(state) { where(state: state) }
+      scope :search_overdue, ->(_query) { where }
 
       filterrific(available_filters: [
                     :search_manufacturer,

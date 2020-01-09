@@ -1,1 +1,53 @@
-<div>I should show user info for one user. Probably in some dl, (dt/dd)* type list. Please fix me.</div>
+<h1> <%= @user.name %> </h1>
+<%= @user.name %><br>
+<%= @user.email %><br>
+<%= @user.phone_number %><br>
+<%= @user.created_at %><br>
+<%= @user.role.humanize %><br>
+<% if @user.deactivated? %>
+  Inactive
+
+  <%= link_to "Activate", deactivate_index_path(id: @user.id), method: :post,
+              data: {confirm: "Are you sure you want to Activate this user?"} %>
+
+<% else %>
+  Active
+  <%= link_to "Deactivate", deactivate_index_path(id: @user.id), method: :post, data: {confirm: "Are you sure you want to change this user to Inactive?"} %>
+<% end %>
+
+<h4><%= link_to 'Edit User Details', edit_user_path(@user) %></h4>
+<br><br>
+
+<h2>Loan history</h2>
+<% if @loans %>
+  <table data-toggle="table">
+    <thead class="thead-light">
+    <tr>
+      <th>Loan</th>
+      <th>Carrier</th>
+      <th>Checked Out Date</th>
+      <th>Checkout Volunteer</th>
+      <th>Due Date</th>
+      <th>Returned Date</th>
+      <th>Checkin Volunter</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @loans.each do |loan| %>
+      <tr>
+        <td><%= link_to 'Edit', edit_carrier_loan_path(loan.carrier, loan), class: 'btn btn-primary btn-sm', data: { modal: true }  %></td>
+        <td><%= link_to loan.carrier.name, carrier_path(loan.carrier.id) %></td>
+        <td><%= loan.created_at.to_date %></td>
+        <% volunteer = loan.checkout_volunteer %>
+        <td><%= volunteer.first_name + " " + volunteer.last_name %></td>
+        <td><%= loan.due_date %></td>
+        <td><%= loan.returned_on %></td>
+        <% volunteer = loan.checkin_volunteer %>
+        <td><%= volunteer.first_name + " " + volunteer.last_name if volunteer%></td>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  No Loans found for this user.
+<% end %>
