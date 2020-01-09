@@ -39,4 +39,15 @@ RSpec.feature 'Loan spec', type: :feature do
     visit carrier_url(carriers(:unavailable))
     expect(page).not_to have_selector(:link_or_button, "Checkout")
   end
+
+  scenario 'Volunteer is able to see a loan history for a specific user' do
+    sign_in volunteer
+    visit users_url
+
+    click_link member.first_name
+
+    expect(page).to have_content(member.first_name)
+
+    # Need to add a checkout here and check that the checkout is on the history
+  end
 end
