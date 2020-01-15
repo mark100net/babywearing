@@ -12,4 +12,4 @@ tmp/*
 
 .idea
 
-
+config/master.key

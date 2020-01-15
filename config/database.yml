@@ -60,7 +60,7 @@ development:
 production:
   <<: *default
   database: babywearing_production
-  password: <%= Rails.application.credentials.database[:password] %>
+  password: <%= ENV["RAILS_MASTER_KEY"] && Rails.application.credentials.database[:password] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

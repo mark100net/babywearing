@@ -20,9 +20,11 @@ Do the below from the root of the Rails project.
 
       az configure --defaults group=midatlantic_babywearing_registries acr=babywearing 
 
-* For this build you will need to login to the resource group:
+* For this build you will need to login to azr and to the repository:
 
       az login
+      
+      az acr login
     
 * Build the image:
 
